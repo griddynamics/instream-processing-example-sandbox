@@ -1,0 +1,34 @@
+{
+    "id": "/sandbox-1/cassandra",
+    "cpus": 1,
+    "mem": 2048,
+    "disk": 2048,
+    
+    "instances": 1,
+    "cmd": "cd ${MESOS_SANDBOX}/cassandra-schema && ./apply_schema.sh & start",
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "poklet/cassandra",
+            "network": "BRIDGE",
+            "portMappings": [
+                {
+                    "containerPort": 9042,
+                    "hostPort": 0,
+                    "servicePort": 10011,
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 9160,
+                    "hostPort": 0,
+                    "servicePort": 10012,
+                    "protocol": "tcp"
+                }
+            ]   
+        }
+    },
+    "fetch": [
+        { "uri": "https://s3-us-west-1.amazonaws.com/instream-processing-sample-artifacts/cassandra-schema.tar.gz", "executable": false, "cache": false }
+    ],
+    "constraints": [["hostname", "UNIQUE"]]
+}

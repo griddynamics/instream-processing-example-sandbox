@@ -1,0 +1,29 @@
+{
+    "id": "/sandbox-1/kafka",
+    "cpus": 0.5,
+    "mem": 1536,
+    "disk": 512,
+    
+    "instances": 1,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "wurstmeister/kafka",
+            "network": "BRIDGE",
+            "portMappings": [
+                {
+                    "containerPort": 9092,
+                    "hostPort": 0,
+                    "servicePort": 10014,
+                    "protocol": "tcp"
+                }
+            ] 
+        }
+    },
+    "env": {
+        "KAFKA_ZOOKEEPER_CONNECT": "<<PUT_YOUR_LB_HOST_HERE>>:10010",
+        "KAFKA_CREATE_TOPICS": "tweets_topic:1:1",
+        "KAFKA_ADVERTISED_HOST_NAME": "<<PUT_YOUR_LB_HOST_HERE>>",
+        "KAFKA_ADVERTISED_PORT": "10014"
+    }
+}

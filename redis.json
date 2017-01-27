@@ -1,0 +1,23 @@
+{
+    "id": "/sandbox-1/redis",
+    "cpus": 0.25,
+    "mem": 256,
+    "disk": 1024,
+    
+    "instances": 1,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "redis",
+            "network": "BRIDGE",
+            "portMappings": [
+                {
+                    "containerPort": 6379,
+                    "hostPort": 0,
+                    "servicePort": 10013,
+                    "protocol": "tcp"
+                }
+            ]      
+        }
+    }
+}

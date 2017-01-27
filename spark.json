@@ -1,0 +1,62 @@
+{
+    "id": "/sandbox-1/spark",
+    "cpus": 0.75,
+    "mem": 1536,
+    
+    "cmd": "cd ${MESOS_SANDBOX}/dictionary-populator && bash ./populator-runner.sh && cd ${MESOS_SANDBOX}/in-stream-tweets-analyzer && bash ./streaming-runner.sh",
+    "instances": 1,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "sequenceiq/spark:1.6.0",
+            "network": "BRIDGE",
+            "portMappings": [
+                {
+                    "containerPort": 8088,
+                    "hostPort": 0,
+                    "servicePort": 0,
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 8042,
+                    "hostPort": 0,
+                    "servicePort": 0,
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 4040,
+                    "hostPort": 0,
+                    "servicePort": 0,
+                    "protocol": "tcp"
+                },
+                {
+                    "containerPort": 2122,
+                    "hostPort": 0,
+                    "servicePort": 0,
+                    "protocol": "tcp"
+                }
+            ]         
+        }
+    },
+    "env": {
+        "KAFKA_BROKER_LIST": "<<PUT_YOUR_LB_HOST_HERE>>:10014",
+        "CASSANDRA_HOST": "<<PUT_YOUR_LB_HOST_HERE>>",
+        "CASSANDRA_PORT": "10011",
+        "REDIS_HOST": "<<PUT_YOUR_LB_HOST_HERE>>",
+        "REDIS_PORT": "10013"
+    },
+    "fetch": [
+    {
+      "uri": "https://s3-us-west-1.amazonaws.com/instream-processing-sample-artifacts/in-stream-tweets-analyzer.tar.gz",
+      "extract": true,
+      "executable": false,
+      "cache": false
+    },
+    {
+      "uri": "https://s3-us-west-1.amazonaws.com/instream-processing-sample-artifacts/dictionary-populator.tar.gz",
+      "extract": true,
+      "executable": false,
+      "cache": false
+    }
+  ]
+}

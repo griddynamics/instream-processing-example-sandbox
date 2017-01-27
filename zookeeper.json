@@ -1,0 +1,23 @@
+{
+    "id": "/sandbox-1/zookeeper",
+    "cpus": 0.25,
+    "mem": 256,
+    "disk": 256,
+    
+    "instances": 1,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "wurstmeister/zookeeper",
+            "network": "BRIDGE",
+            "portMappings": [
+                {
+                    "containerPort": 2181,
+                    "hostPort": 0,
+                    "servicePort": 10010,
+                    "protocol": "tcp"
+                }
+            ]        
+        }
+    }
+}
